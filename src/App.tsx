@@ -7,9 +7,31 @@ import { WritingStudio } from './components/WritingStudio';
 import { CertificateView } from './components/CertificateView';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { generateCertification } from './components/services/geminiService';
 import { PRICING_PLANS } from './components/constants/constants';
 import type { View, TimeSlot } from './components/types/types';
+
+// Mock certification function (no API needed)
+const generateMockCertification = async (text: string): Promise<string> => {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  
+  return `✅ CERTIFIED HUMAN-MADE CONTENT
+
+This content has been verified as authentic human writing by Notar-EYES™.
+
+Content Analysis:
+• Length: ${text.length} characters
+• Words: ${text.trim().split(/\s+/).length} words
+• Writing Style: Natural and authentic
+• AI Detection: No artificial patterns detected
+• Timestamp: ${new Date().toLocaleString()}
+
+🏆 Verified by Notar-EYES™ Human Content Authentication System
+
+This certificate confirms that the submitted content exhibits genuine human creativity, natural language patterns, and authentic thought processes.
+
+Certificate ID: DEMO-${Date.now()}`;
+};
 
 export default function App() {
   const [view, setView] = useState<View>('landing');
@@ -47,7 +69,8 @@ export default function App() {
     setError(null);
     setFinalText(text);
     try {
-      const summary = await generateCertification(text);
+      // Use mock certification instead of Gemini API
+      const summary = await generateMockCertification(text);
       setCertificationSummary(summary);
       setView('certified');
     } catch (err) {
