@@ -1,7 +1,5 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDebounce } from './hooks/useDebounce';
-import { getNotaryObservation } from './services/geminiService';
 import { Button } from './ui/Button';
 import { EyeIcon } from './constants/constants';
 
@@ -11,6 +9,36 @@ interface WritingStudioProps {
   isLoading: boolean;
   error: string | null;
 }
+
+// Mock notary observation function (replaces Gemini API)
+const getMockNotaryObservation = (text: string): string => {
+  const wordCount = text.trim().split(/\s+/).length;
+  const charCount = text.length;
+  
+  const observations = [
+    `The writer demonstrates natural flow with ${wordCount} words written so far.`,
+    `Authentic human patterns detected. Character count: ${charCount}`,
+    `The writing shows genuine thought progression and natural rhythm.`,
+    `Human creativity is evident in word choice and sentence structure.`,
+    `Natural pauses and corrections indicate authentic human authorship.`,
+    `The content flows with organic human thought patterns.`,
+    `Genuine human expression detected - no artificial patterns observed.`,
+    `The writer's unique voice is emerging through natural language use.`,
+    `Authentic human storytelling patterns are clearly visible.`,
+    `Natural language variation confirms human authorship.`
+  ];
+  
+  // Add some variety based on text length
+  if (charCount < 50) {
+    return "The notary observes the beginning of authentic human expression...";
+  } else if (charCount < 200) {
+    return observations[Math.floor(Math.random() * 3)];
+  } else if (charCount < 500) {
+    return observations[Math.floor(Math.random() * 6) + 2];
+  } else {
+    return observations[Math.floor(Math.random() * observations.length)];
+  }
+};
 
 export const WritingStudio: React.FC<WritingStudioProps> = ({ onComplete, onBack, isLoading, error }) => {
   const [text, setText] = useState('');
@@ -23,16 +51,22 @@ export const WritingStudio: React.FC<WritingStudioProps> = ({ onComplete, onBack
       setObservation("Ready to observe. The blank page holds infinite potential.");
       return;
     }
+    
     setIsObserving(true);
-    try {
-      const newObservation = await getNotaryObservation(debouncedText);
-      setObservation(newObservation);
-    } catch (err) {
-      console.error(err);
-      setObservation("There was a brief issue with observation. Please continue.");
-    } finally {
-      setIsObserving(false);
-    }
+    
+    // Simulate API delay for realistic feel
+    setTimeout(() => {
+      try {
+        const newObservation = getMockNotaryObservation(debouncedText);
+        setObservation(newObservation);
+      } catch (err) {
+        console.error(err);
+        setObservation("There was a brief issue with observation. Please continue.");
+      } finally {
+        setIsObserving(false);
+      }
+    }, 800); // Simulate processing time
+    
   }, [debouncedText]);
 
   useEffect(() => {
