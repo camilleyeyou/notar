@@ -8,6 +8,25 @@ interface LandingPageProps {
   onStart: () => void;
 }
 
+// Utility function to scroll to waitlist section
+const scrollToWaitlist = () => {
+  const newsletterSection = document.getElementById('newsletter');
+  if (newsletterSection) {
+    newsletterSection.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'center'
+    });
+    
+    // Add a subtle highlight effect
+    newsletterSection.style.transform = 'scale(1.02)';
+    newsletterSection.style.transition = 'transform 0.3s ease-in-out';
+    
+    setTimeout(() => {
+      newsletterSection.style.transform = 'scale(1)';
+    }, 600);
+  }
+};
+
 const HeroSection: React.FC<{ onStart: () => void }> = ({ onStart }) => (
   <section className="relative text-center py-16 md:py-24 overflow-hidden rounded-lg">
     <video
@@ -30,7 +49,7 @@ const HeroSection: React.FC<{ onStart: () => void }> = ({ onStart }) => (
       <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
         In a world of generated everything, Notar-EYES™ is proof-of-personhood. We observe you write, live, and issue a certificate of human authorship. A little ceremony for the real.
       </p>
-      <Button onClick={onStart}>Book a Notary Session Now</Button>
+      <Button onClick={scrollToWaitlist}>Join Our Waitlist</Button>
     </div>
   </section>
 );
@@ -119,11 +138,11 @@ const PricingSection: React.FC<{ onStart: () => void }> = ({ onStart }) => (
                 </Button>
               ) : (
                 <Button
-                  onClick={onStart}
+                  onClick={scrollToWaitlist}
                   variant={plan.isFeatured ? 'primary' : 'secondary'}
                   className="w-full"
                 >
-                  Choose Plan
+                  Join Waitlist
                 </Button>
               )}
             </div>
