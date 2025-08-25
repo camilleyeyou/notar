@@ -49,7 +49,7 @@ const HeroSection: React.FC<{ onStart: () => void }> = ({ onStart }) => (
       <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
         In a world of generated everything, Notar-EYES™ is proof-of-personhood. We observe you write, live, and issue a certificate of human authorship. A little ceremony for the real.
       </p>
-      <Button onClick={scrollToWaitlist}>Join Our Waitlist</Button>
+      <Button onClick={() => window.open('YOUR_GOOGLE_CALENDAR_LINK_HERE', '_blank')}>Book a Session</Button>
     </div>
   </section>
 );
