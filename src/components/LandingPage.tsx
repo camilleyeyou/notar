@@ -27,25 +27,6 @@ const scrollToWaitlist = () => {
   }
 };
 
-// Utility function to scroll to booking section
-const scrollToBooking = () => {
-  const bookingSection = document.getElementById('booking');
-  if (bookingSection) {
-    bookingSection.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'center'
-    });
-    
-    // Add a subtle highlight effect
-    bookingSection.style.transform = 'scale(1.02)';
-    bookingSection.style.transition = 'transform 0.3s ease-in-out';
-    
-    setTimeout(() => {
-      bookingSection.style.transform = 'scale(1)';
-    }, 600);
-  }
-};
-
 const HeroSection: React.FC<{ onStart: () => void }> = ({ onStart }) => (
   <section className="relative text-center py-16 md:py-24 overflow-hidden rounded-lg">
     <video
@@ -68,54 +49,7 @@ const HeroSection: React.FC<{ onStart: () => void }> = ({ onStart }) => (
       <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
         In a world of generated everything, Notar-EYES™ is proof-of-personhood. We observe you write, live, and issue a certificate of human authorship. A little ceremony for the real.
       </p>
-      <Button onClick={scrollToBooking}>Book a Session</Button>
-    </div>
-  </section>
-);
-
-const BookingSection: React.FC = () => (
-  <section id="booking" className="py-16 bg-brand-slate/50">
-    <div className="container mx-auto px-4">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl md:text-4xl font-serif text-white mb-4">Book Your Session</h2>
-        <p className="text-gray-300 max-w-2xl mx-auto">
-          Schedule a time that works for you. Choose from available slots and get instant confirmation.
-        </p>
-      </div>
-      
-      <div className="max-w-4xl mx-auto bg-white rounded-lg overflow-hidden shadow-xl">
-        {/* Cal.com Embed Container */}
-        <div className="relative" style={{ height: '600px' }}>
-          {/* Replace YOUR_CAL_COM_USERNAME with your actual Cal.com username */}
-          <iframe
-            src="https://cal.com/ghislain-camille-ghufkr/30min"
-            width="100%"
-            height="100%"
-            frameBorder="0"
-            title="Schedule a meeting"
-            className="rounded-lg"
-          />
-          
-          {/* Fallback content while Cal.com loads */}
-          <div className="absolute inset-0 bg-gray-100 flex items-center justify-center rounded-lg">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-accent mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading booking calendar...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Alternative booking method */}
-      <div className="text-center mt-8">
-        <p className="text-gray-400 mb-4">Having trouble with the booking widget?</p>
-        <Button 
-          onClick={() => window.open('https://cal.com/YOUR_CAL_COM_USERNAME', '_blank')}
-          variant="secondary"
-        >
-          Open in New Tab
-        </Button>
-      </div>
+      <Button onClick={() => window.open('https://cal.com/ghislain-camille-ghufkr', '_blank')}>Book a Session</Button>
     </div>
   </section>
 );
@@ -349,7 +283,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
   return (
     <div className="space-y-16 isolate">
       <HeroSection onStart={onStart} />
-      <BookingSection />
       <HowItWorksSection />
       <Human11Section />
       <PricingSection onStart={onStart} />
